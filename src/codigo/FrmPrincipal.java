@@ -142,7 +142,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 throw new FileNotFoundException();
             }
             // Variables para escribir los resultados del analisis lexico
-            File archivo = new File(rutaDirectorioDestino + "/tokens.sim");                            
+            File archivo = new File(rutaDirectorioDestino + "/tokens.lex");                            
             PrintWriter escribir = new PrintWriter(archivo);            
             
             // Variables para hacer el analisis lexico
