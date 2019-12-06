@@ -36,7 +36,7 @@ SENTENCIA ::=
     SENTENCIA DECLARACION_REPITE |
     DECLARACION_REPITE |
     SENTENCIA DECLARACION_LEER |
-    DECLARACION_LEER
+    DECLARACION_LEER |
     SENTENCIA DECLARACION_IMPRIMIR |
     DECLARACION_IMPRIMIR
 ;
@@ -46,7 +46,9 @@ DECLARACION ::=
     Identificador Asignacion Numero Resta Numero |
     Identificador Asignacion Numero Multiplicacion Numero |
     Identificador Asignacion Numero Division Numero |
-    Identificador Asignacion LiteralDeTexto
+    Identificador Asignacion LiteralDeTexto |
+    Identificador Asignacion Identificador Suma Numero |
+    Identificador Asignacion Identificador Multiplicacion Identificador
 ;
 DECLARACION_SI ::= 
     SI SENTENCIA_BOOLEANA  ENTONCES SENTENCIA FINSI
@@ -57,7 +59,7 @@ SENTENCIA_BOOLEANA ::=
     Identificador MenorQue Identificador |
     Identificador IgualA Numero |
     Identificador MayorQue Numero |
-    Identificador MenorQue Numero |
+    Identificador MenorQue Numero 
 ;
 DECLARACION_SI_SINO ::=
     SI SENTENCIA_BOOLEANA ENTONCES SENTENCIA SINO SENTENCIA FINSI
