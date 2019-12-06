@@ -5,34 +5,34 @@ import static codigo.Tokens.*;
 %type Tokens
 L=[a-zA-Z_]+
 D=[0-9]+
-espacio=[ ,\t,\r,\n]+
+espacio=[ ,\t,\r]+
 CA = "\""[^*]~"\"" | "\"" + "\"" 
 %{
     public String lexeme;
 %}
 %%
-PROGRAMA |
-FINPROG |
-SI |
-ENTONCES |
-SINO |
-FINSI |
-REPITE |
-VECES |
-FINREP |
-IMPRIME |
-LEE |
-while {lexeme=yytext(); return Reservadas;}
+PROGRAMA  {lexeme=yytext(); return PROGRAMA;}
+FINPROG  {lexeme=yytext(); return FINPROG;}
+SI  {lexeme=yytext(); return SI;}
+ENTONCES  {lexeme=yytext(); return ENTONCES;}
+SINO  {lexeme=yytext(); return SINO;}
+FINSI  {lexeme=yytext(); return FINSI;}
+REPITE  {lexeme=yytext(); return REPITE;}
+VECES  {lexeme=yytext(); return VECES;}
+FINREP  {lexeme=yytext(); return FINREP;}
+IMPRIME  {lexeme=yytext(); return IMPRIME;}
+LEE  {lexeme=yytext(); return LEE;}
 {espacio} {/*Ignore*/}
 "#".* {/*Ignore*/}
-"=" {return Asignacion;}
-"+" {return Suma;}
-"-" {return Resta;}
-"*" {return Multiplicacion;}
-"/" {return Division;}
-">" {return MayorQue;}
-"<" {return MenorQue;}
-"==" {return IgualA;}
+"=" {lexeme=yytext(); return Asignacion;}
+"+" {lexeme=yytext(); return Suma;}
+"-" {lexeme=yytext(); return Resta;}
+"*" {lexeme=yytext(); return Multiplicacion;}
+"/" {lexeme=yytext(); return Division;}
+">" {lexeme=yytext(); return MayorQue;}
+"<" {lexeme=yytext(); return MenorQue;}
+"\n" {lexeme=yytext(); return SaltoDeLinea;}
+"==" {lexeme=yytext(); return IgualA;}
 {L}({L}|{D})* {lexeme=yytext(); return Identificador;}
 {D}("x")({L}|{D})* {lexeme=yytext(); return Numero;}
 {CA}+ {lexeme=yytext(); return LiteralDeTexto;}

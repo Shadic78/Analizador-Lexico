@@ -12,8 +12,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Symbol;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -59,6 +61,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         LbRutaArchivoFuente = new javax.swing.JLabel();
         LbRutaDirectorioDestino = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TxtResultadoSintactico = new javax.swing.JTextArea();
+        BtnAnalizarSintaxis = new javax.swing.JButton();
 
         btnAnalizar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAnalizar1.setText("Archivo fuente");
@@ -69,9 +76,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(720, 560));
-        setPreferredSize(new java.awt.Dimension(720, 560));
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(725, 670));
+        setPreferredSize(new java.awt.Dimension(725, 670));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnAnalizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -81,13 +87,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 btnAnalizarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAnalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 490, 158, -1));
+        getContentPane().add(btnAnalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 158, -1));
 
         txtResultado.setColumns(20);
         txtResultado.setRows(5);
         jScrollPane1.setViewportView(txtResultado);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 331, 310));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 331, 240));
 
         BtnSelectDestino.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BtnSelectDestino.setText("Ruta de destino");
@@ -96,7 +102,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 BtnSelectDestinoActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnSelectDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 163, -1));
+        getContentPane().add(BtnSelectDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 163, -1));
 
         BtnSelectArchivo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BtnSelectArchivo.setText("Cargar archivo");
@@ -105,33 +111,53 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 BtnSelectArchivoActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnSelectArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 163, -1));
+        getContentPane().add(BtnSelectArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 163, -1));
 
         TxtCodigoFuente.setColumns(20);
         TxtCodigoFuente.setRows(5);
         jScrollPane2.setViewportView(TxtCodigoFuente);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 340, 310));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 340, 240));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Codigo fuente");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Tokens");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
 
         LbRutaArchivoFuente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LbRutaArchivoFuente.setText("Ruta...");
-        getContentPane().add(LbRutaArchivoFuente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
+        getContentPane().add(LbRutaArchivoFuente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
 
         LbRutaDirectorioDestino.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LbRutaDirectorioDestino.setText("Ruta...");
-        getContentPane().add(LbRutaDirectorioDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 105, -1, 20));
+        getContentPane().add(LbRutaDirectorioDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, -1, 20));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Analizador léxico");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 462, 720, 60));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Analizador sintáctico");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 470, -1, -1));
+
+        TxtResultadoSintactico.setColumns(20);
+        TxtResultadoSintactico.setRows(5);
+        jScrollPane3.setViewportView(TxtResultadoSintactico);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 690, 80));
+
+        BtnAnalizarSintaxis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        BtnAnalizarSintaxis.setText("Analizar");
+        BtnAnalizarSintaxis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAnalizarSintaxisActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnAnalizarSintaxis, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, 160, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -163,7 +189,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     case ERROR:
                         resultado += "Simbolo no definido\n";
                         break;
-                    case Reservadas:
+                    case PROGRAMA: case FINPROG: case SI: case ENTONCES: case SINO: case FINSI: case REPITE: case VECES: case FINREP: case IMPRIME: case LEE:
                         resultado += lexer.lexeme + "\n";
                         break;                        
                     case Suma: case Resta: case Multiplicacion: case Division:
@@ -186,7 +212,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         break;     
                      case LiteralDeTexto:
                         resultado +=  "[txt]\n";
-                        break;                           
+                        break;
+                     case SaltoDeLinea:
+                         break;
                      default:
                         resultado += "Simbolo desconocido\n";
                         break;                           
@@ -222,8 +250,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         rutaArchivoFuente = seleccionarArchivo("Selecciona tu archivo", true);
         if(rutaArchivoFuente != null) {
              getLbRutaArchivoFuente().setText(rutaArchivoFuente); 
-             getTxtCodigoFuente().setText("");
-             cargarArchivo(rutaArchivoFuente, getTxtCodigoFuente());
+             getTxtCodigoFuente().setText( leerArchivo(rutaArchivoFuente) );
              getTxtResultado().setText("");
         }
         else {
@@ -232,6 +259,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
             getTxtResultado().setText("");            
         }        
     }//GEN-LAST:event_BtnSelectArchivoActionPerformed
+
+    private void BtnAnalizarSintaxisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAnalizarSintaxisActionPerformed
+        String tokens = leerArchivo(rutaArchivoFuente);
+        Sintax sintax = new Sintax(new codigo.LexerCup(new StringReader(tokens)));
+        try {
+            sintax.parse();
+            getTxtResultadoSintactico().setText("Compilacion exitosa");
+        } catch (Exception ex) {
+            Symbol symbol  = sintax.getS();
+            getTxtResultadoSintactico().setText("Error de sintaxis en la linea: " + (symbol.right + 1) + " columna: " + (symbol.left + 1 + " texto: \"" + symbol.value + "\""));            
+        }
+    }//GEN-LAST:event_BtnAnalizarSintaxisActionPerformed
     
     public String seleccionarArchivo(String tituloVentana, boolean escogerArchivo) {
         String ruta = null;
@@ -258,15 +297,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         return ruta;
     }
     
-    public void cargarArchivo(String rutaArchivo, JTextArea TextArea) {
+    public String leerArchivo(String rutaArchivo) {
         BufferedReader reader;
+        String linea = "";
+        String texto = "";
         try {
             reader = new BufferedReader(new FileReader(rutaArchivo));
-            String linea = reader.readLine();
+            linea = reader.readLine();
             while (linea != null) {
-                //System.out.println(linea);
-                // Carga las lineas de texto del archivo al TextArea
-                TextArea.setText(TextArea.getText() + linea + "\n");
+                texto += linea + "\n";                
                 linea = reader.readLine();
             }
             reader.close();
@@ -274,8 +313,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         catch (IOException e) {
             e.printStackTrace();
         }    
+        return texto;
     }
 
+    public JTextArea getTxtResultadoSintactico() {
+        return TxtResultadoSintactico;
+    }
+
+    public void setTxtResultadoSintactico(JTextArea TxtResultadoSintactico) {
+        this.TxtResultadoSintactico = TxtResultadoSintactico;
+    }
+    
     public JTextArea getTxtResultado() {
         return txtResultado;
     }
@@ -305,18 +353,23 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAnalizarSintaxis;
     private javax.swing.JButton BtnSelectArchivo;
     private javax.swing.JButton BtnSelectDestino;
     private javax.swing.JLabel LbRutaArchivoFuente;
     private javax.swing.JLabel LbRutaDirectorioDestino;
     private javax.swing.JTextArea TxtCodigoFuente;
+    private javax.swing.JTextArea TxtResultadoSintactico;
     private javax.swing.JButton btnAnalizar;
     private javax.swing.JButton btnAnalizar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea txtResultado;
     // End of variables declaration//GEN-END:variables
 }

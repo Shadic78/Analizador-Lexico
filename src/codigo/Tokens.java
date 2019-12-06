@@ -10,7 +10,17 @@ package codigo;
  * @author Charly Ponce
  */
 public enum Tokens {
-    Reservadas,
+    PROGRAMA,
+    FINPROG,
+    SI,
+    ENTONCES,
+    SINO,
+    FINSI,
+    REPITE,
+    VECES,
+    FINREP,
+    IMPRIME,
+    LEE,
     Asignacion,
     Suma,
     Resta,
@@ -22,5 +32,6 @@ public enum Tokens {
     MenorQue,
     IgualA,
     LiteralDeTexto,
+    SaltoDeLinea,
     ERROR
 }

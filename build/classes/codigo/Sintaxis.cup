@@ -1,0 +1,76 @@
+package codigo;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal SaltoDeLinea, Asignacion, Suma, Resta, Multiplicacion, Division, Identificador, Numero,
+    MayorQue, MenorQue, IgualA, LiteralDeTexto, PROGRAMA, FINPROG, ERROR, ENTONCES, SI, 
+    FINSI, REPITE, VECES,  FINREP, SINO, IMPRIME, LEE;
+non terminal INICIO_PROGRAMA, SENTENCIA, DECLARACION, DECLARACION_SI, DECLARACION_SI_SINO,
+    DECLARACION_REPITE, SENTENCIA_BOOLEANA, DECLARACION_LEER, DECLARACION_IMPRIMIR;
+
+start with INICIO_PROGRAMA;
+
+INICIO_PROGRAMA ::= 
+    PROGRAMA Identificador SENTENCIA FINPROG;
+
+SENTENCIA ::= 
+    SENTENCIA DECLARACION |
+    DECLARACION |
+    SENTENCIA DECLARACION_SI | 
+    DECLARACION_SI |
+    SENTENCIA DECLARACION_SI_SINO |
+    DECLARACION_SI_SINO |
+    SENTENCIA DECLARACION_REPITE |
+    DECLARACION_REPITE |
+    SENTENCIA DECLARACION_LEER |
+    DECLARACION_LEER
+    SENTENCIA DECLARACION_IMPRIMIR |
+    DECLARACION_IMPRIMIR
+;
+DECLARACION ::= 
+    Identificador Asignacion Numero |
+    Identificador Asignacion Numero Suma Numero |
+    Identificador Asignacion Numero Resta Numero |
+    Identificador Asignacion Numero Multiplicacion Numero |
+    Identificador Asignacion Numero Division Numero |
+    Identificador Asignacion LiteralDeTexto
+;
+DECLARACION_SI ::= 
+    SI SENTENCIA_BOOLEANA  ENTONCES SENTENCIA FINSI
+;
+SENTENCIA_BOOLEANA ::= 
+    Identificador IgualA Identificador |
+    Identificador MayorQue Identificador |
+    Identificador MenorQue Identificador |
+    Identificador IgualA Numero |
+    Identificador MayorQue Numero |
+    Identificador MenorQue Numero |
+;
+DECLARACION_SI_SINO ::=
+    SI SENTENCIA_BOOLEANA ENTONCES SENTENCIA SINO SENTENCIA FINSI
+;
+DECLARACION_REPITE ::= 
+    REPITE Numero VECES SENTENCIA FINREP |
+    REPITE Identificador VECES SENTENCIA FINREP
+;
+DECLARACION_LEER ::= 
+    LEE Identificador
+;
+DECLARACION_IMPRIMIR ::= 
+    IMPRIME Identificador |
+    IMPRIME Numero |
+    IMPRIME LiteralDeTexto
+;
