@@ -37,6 +37,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private String rutaDirectorioDestino;
     private String nombreArchivo;
     private String[] partes;
+    private String[] numeroHexa;    
     //  Variables para las tablas de simbolos
     private String IDS[][];
     private String TXT[][];
@@ -229,8 +230,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     case Numero:
                         resultado += "[val]\n";
                         if(!verificarRepeticion(VAL, contVAL, lexer.lexeme)) {
+                            numeroHexa = lexer.lexeme.split("x");     
+                            String numeroHexa2 = numeroHexa[1];    
+                            int numeroHexaADecimal = Integer.parseInt(numeroHexa2, 16);
+                            
                             VAL[contVAL][0] = lexer.lexeme;
-                            VAL[contVAL][1] = "VAL" + (contVAL + 1);  
+                            //VAL[contVAL][1] = "VAL" + (contVAL + 1);  
+                            VAL[contVAL][1] = numeroHexaADecimal  + "";
                             System.out.println(VAL[contVAL][0] + ", " + VAL[contVAL][1]);
                             contVAL++;    
                         }                        
