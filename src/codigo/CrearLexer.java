@@ -16,14 +16,7 @@ import java.nio.file.Paths;
  *  IGNORAR, SOLO EJECUTAR SI SE MODIFICA Lexer.flex
  */
 public class CrearLexer {
-    /*public static void main(String[] args) {
-        String ruta = "C:/Users/Usuario.ATHENEA/Desktop/AnalizadorLexico/src/codigo/Lexer.flex";
-        generarLexer(ruta);
-    }
-    public static void generarLexer(String ruta){
-        File archivo = new File(ruta);
-        JFlex.Main.generate(archivo);
-    }*/
+/*
    public static void main(String[] args) throws Exception {
         String ruta1 = "C:/Users/Usuario.ATHENEA/Desktop/AnalizadorLexico/src/codigo/Lexer.flex";
         String ruta2 = "C:/Users/Usuario.ATHENEA/Desktop/AnalizadorLexico/src/codigo/LexerCup.flex";
@@ -55,4 +48,5 @@ public class CrearLexer {
                 Paths.get("C:/Users/Usuario.ATHENEA/Desktop/AnalizadorLexico/src/codigo/Sintax.java")
         );
     }    
+*/
 }
