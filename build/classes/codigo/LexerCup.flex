@@ -34,15 +34,11 @@ LEE  {return new Symbol(sym.LEE, yychar, yyline, yytext());}
 {espacio} {/*Ignore*/}
 "#".* {/*Ignore*/}
 "=" {return new Symbol(sym.Asignacion, yychar, yyline, yytext());}
-"+" {return new Symbol(sym.Suma, yychar, yyline, yytext());}
-"-" {return new Symbol(sym.Resta, yychar, yyline, yytext());}
-"*" {return new Symbol(sym.Multiplicacion, yychar, yyline, yytext());}
-"/" {return new Symbol(sym.Division, yychar, yyline, yytext());}
-">" {return new Symbol(sym.MayorQue, yychar, yyline, yytext());}
-"<" {return new Symbol(sym.MenorQue, yychar, yyline, yytext());}
+"[op_ar]" {return new Symbol(sym.OperadorAritmetico, yychar, yyline, yytext());}
+"[op_rel]" {return new Symbol(sym.OperadorRelacional, yychar, yyline, yytext());}
 "==" {return new Symbol(sym.IgualA, yychar, yyline, yytext());}
-{L}({L}|{D})* {return new Symbol(sym.Identificador, yychar, yyline, yytext());}
-{D}("x")({L}|{D})* {return new Symbol(sym.Numero, yychar, yyline, yytext());}
-{CA}+ {return new Symbol(sym.LiteralDeTexto, yychar, yyline, yytext());}
+"[id]" {return new Symbol(sym.Identificador, yychar, yyline, yytext());}
+"[val]" {return new Symbol(sym.Numero, yychar, yyline, yytext());}
+"[txt]" {return new Symbol(sym.LiteralDeTexto, yychar, yyline, yytext());}
  . {return new Symbol(sym.ERROR, yychar, yyline, yytext());}
 

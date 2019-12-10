@@ -15,8 +15,8 @@ parser code
 }
 :};
 
-terminal SaltoDeLinea, Asignacion, Suma, Resta, Multiplicacion, Division, Identificador, Numero,
-    MayorQue, MenorQue, IgualA, LiteralDeTexto, PROGRAMA, FINPROG, ERROR, ENTONCES, SI, 
+terminal SaltoDeLinea, Asignacion, OperadorAritmetico, Identificador, Numero,
+    OperadorRelacional, IgualA, LiteralDeTexto, PROGRAMA, FINPROG, ERROR, ENTONCES, SI, 
     FINSI, REPITE, VECES,  FINREP, SINO, IMPRIME, LEE;
 non terminal INICIO_PROGRAMA, SENTENCIA, DECLARACION, DECLARACION_SI, DECLARACION_SI_SINO,
     DECLARACION_REPITE, SENTENCIA_BOOLEANA, DECLARACION_LEER, DECLARACION_IMPRIMIR;
@@ -42,24 +42,20 @@ SENTENCIA ::=
 ;
 DECLARACION ::= 
     Identificador Asignacion Numero |
-    Identificador Asignacion Numero Suma Numero |
-    Identificador Asignacion Numero Resta Numero |
-    Identificador Asignacion Numero Multiplicacion Numero |
-    Identificador Asignacion Numero Division Numero |
+    Identificador Asignacion Numero OperadorAritmetico Numero |
     Identificador Asignacion LiteralDeTexto |
-    Identificador Asignacion Identificador Suma Numero |
-    Identificador Asignacion Identificador Multiplicacion Identificador
+    Identificador Asignacion Identificador OperadorAritmetico Numero |
+    Identificador Asignacion Numero OperadorAritmetico Identificador |
+    Identificador Asignacion Identificador OperadorAritmetico Identificador
 ;
 DECLARACION_SI ::= 
     SI SENTENCIA_BOOLEANA  ENTONCES SENTENCIA FINSI
 ;
 SENTENCIA_BOOLEANA ::= 
     Identificador IgualA Identificador |
-    Identificador MayorQue Identificador |
-    Identificador MenorQue Identificador |
+    Identificador OperadorRelacional Identificador |
     Identificador IgualA Numero |
-    Identificador MayorQue Numero |
-    Identificador MenorQue Numero 
+    Identificador OperadorRelacional Numero
 ;
 DECLARACION_SI_SINO ::=
     SI SENTENCIA_BOOLEANA ENTONCES SENTENCIA SINO SENTENCIA FINSI
